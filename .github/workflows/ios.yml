@@ -28,6 +28,12 @@ jobs:
           cd riverlake-help-frontend
           npm run capacitor:build
 
+      - name: Add iOS platform
+        run: |
+          cd riverlake-help-frontend
+          npm install @capacitor/ios
+          npx cap add ios
+
       - name: Sync to iOS
         run: |
           cd riverlake-help-frontend
