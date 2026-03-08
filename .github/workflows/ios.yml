@@ -1,0 +1,50 @@
+name: Build iOS
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd riverlake-help-frontend
+          npm install
+
+      - name: Build web assets
+        run: |
+          cd riverlake-help-frontend
+          npm run capacitor:build
+
+      - name: Sync to iOS
+        run: |
+          cd riverlake-help-frontend
+          npx cap sync ios
+
+      - name: Install CocoaPods
+        run: |
+          cd riverlake-help-frontend/ios/App
+          pod install
+
+      - name: Build iOS
+        run: |
+          cd riverlake-help-frontend/ios/App
+          xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -destination 'generic/platform=iOS Simulator' build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: riverlake-help-frontend/ios/App/App.ipa
