@@ -1,0 +1,4 @@
+include:
+  - project: 'cidevops/java-cicd-template'
+    ref: master
+    file: 'templates/java-pipeline.yaml'
