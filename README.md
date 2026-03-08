@@ -61,22 +61,108 @@ npm run dev
 ### 构建移动应用
 
 ```bash
-cd frontend
+cd riverlake-help-frontend
 
 # 安装依赖
 npm install
 
 # 构建 Web 资源
 npm run capacitor:build
+```
 
-# 添加平台
+## Android 构建（Windows/Mac/Linux）
+
+### 方式一：Android Studio
+
+```bash
+cd riverlake-help-frontend
+
+# 添加 Android 平台
 npx cap add android
+
+# 同步 Web 资源
+npx cap sync android
+
+# 打开 Android Studio
+npx cap open android
+```
+
+在 Android Studio 中：`Build → Build APK`
+
+### 方式二：命令行构建
+
+```bash
+cd riverlake-help-frontend/android
+./gradlew assembleDebug
+```
+
+APK 文件位于：`android/app/build/outputs/apk/debug/app-debug.apk`
+
+## iOS 构建（仅限 Mac）
+
+### 前提条件
+
+- macOS 系统
+- Xcode 已安装
+- Apple Developer 账号（如需真机安装）
+
+### 构建步骤
+
+```bash
+cd riverlake-help-frontend
+
+# 安装依赖
+npm install
+
+# 安装 iOS 平台
+npm install @capacitor/ios@^6.0.0
 npx cap add ios
 
-# 运行在设备/模拟器
-npx cap run android
+# 同步 Web 资源
+npx cap sync ios
+
+# 安装 CocoaPods 依赖
+cd ios/App
+pod install
+```
+
+### 模拟器运行
+
+```bash
+cd ios/App
+
+# 启动模拟器
+open -a Simulator
+
+# 运行应用
+xcodebuild -workspace App.xcworkspace -scheme App -destination 'platform=iOS Simulator,name=iPhone 15' -derivedDataPath ./build build
+
+# 或者使用 Capacitor 运行
 npx cap run ios
 ```
+
+### 真机部署
+
+1. 在 Xcode 中配置签名：
+   - 点击项目 → Signing & Capabilities
+   - 选择 Team
+   - 勾选 "Automatically manage signing"
+
+2. 连接真机设备，运行：
+   ```bash
+   xcodebuild -workspace App.xcworkspace -scheme App -destination 'generic/platform=iOS' -exportArchive -exportPath ./output build
+   ```
+
+## CI/CD 构建
+
+本项目已配置 GitHub Actions，可自动构建 iOS 应用。
+
+详见：`.github/workflows/ios.yml`
+
+### 触发构建
+
+- 推送代码到 master 分支自动触发
+- 或在 GitHub Actions 页面手动触发
 
 ## 部署说明
 
