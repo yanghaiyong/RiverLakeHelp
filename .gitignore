@@ -1,39 +1,34 @@
 # Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+riverlake-help-backend/target/
+riverlake-help-backend/*.iml
+
+# Node
+riverlake-help-frontend/node_modules/
+riverlake-help-frontend/dist/
+riverlake-help-frontend/.vite/
+riverlake-help-frontend/*.log
+
+# Capacitor / Android
+riverlake-help-frontend/android/
+riverlake-help-frontend/ios/
+riverlake-help-frontend/capacitor/
+riverlake-help-frontend/android/.gradle/
+riverlake-help-frontend/android/build/
+riverlake-help-frontend/android/app/build/
 
 # IDE
 .idea/
-*.iml
-*.ipr
-*.iws
-.project
-.classpath
-.settings/
 .vscode/
-*.swp
-*.swo
-*~
+*.iml
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-logs/
+# Environment
+.env
+.env.local
+.env.*.local
 
-# Test
-test-output/
-surefire-reports/
-
-# Docker
-.docker/
+# Gradle
+.gradle/

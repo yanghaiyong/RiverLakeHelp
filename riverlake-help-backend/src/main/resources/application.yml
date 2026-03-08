@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: riverlake-help
+  
+# CORS Configuration
+cors:
+  allowed-origins: "http://localhost:5173,http://localhost:4173,capacitor://localhost"
+
+logging:
+  level:
+    com.riverlake: debug
+    org.springframework.web: info
